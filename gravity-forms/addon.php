@@ -74,6 +74,38 @@ class ICModalAddOn extends GFAddOn {
                         'tooltip' => esc_html__( 'Modal width in % of screen', 'ic-gravity-modal' ),
                         'choices' => getPercs(),
                     ),
+                    array(
+                        'label'   => esc_html__( 'Modal Theme', 'ic-gravity-modal' ),
+                        'type'    => 'select',
+                        'name'    => 'modalTheme',
+                        'tooltip' => esc_html__( 'Modal Theme', 'ic-gravity-modal' ),
+                        'choices' => array(
+                            array('label' => __('Light', 'ic-gravity-modal'), 'value' => 'light'),
+                            array('label' => __('Dark', 'ic-gravity-modal'), 'value' => 'dark'),
+                        ),
+                    ),
+                    array(
+                        'label'   => esc_html__( 'Overlay Theme', 'ic-gravity-modal' ),
+                        'type'    => 'select',
+                        'name'    => 'overlayTheme',
+                        'tooltip' => esc_html__( 'Overlay Theme', 'ic-gravity-modal' ),
+                        'choices' => array(
+                            array('label' => __('Light', 'ic-gravity-modal'), 'value' => 'light'),
+                            array('label' => __('Dark', 'ic-gravity-modal'), 'value' => 'dark'),
+                        ),
+                    ),
+                    array(
+                        'label'   => esc_html__( 'Fullscreen on Mobile', 'ic-gravity-modal' ),
+                        'type'    => 'checkbox',
+                        'name'    => 'enableMobileFullscreen',
+                        'tooltip' => esc_html__( 'If true, modal becomes fullscreen on mobile devices for better legibility.', 'ic-gravity-modal' ),
+                        'choices' => array(
+                            array(
+                                'label' => esc_html__( 'Enabled', 'ic-gravity-modal' ),
+                                'name'  => 'enableMobileFullscreen',
+                            ),
+                        ),
+                    ),
                 ),
             ),
         );

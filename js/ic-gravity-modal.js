@@ -2,6 +2,30 @@ window.IcGravityModalInit = function(forms, ajaxUrl) {
     Vue.component('SweetModal', window.SweetModal.SweetModal);
     Vue.component('SweetModalTab', window.SweetModal.SweetModalTab);
 
+    function parseOptions(forms) {
+        const optTypes = {
+            enabled: Boolean,
+            enableMobileFullscreen: Boolean,
+            modalTheme: String,
+            modalWidth: String,
+            overlayTheme: String,
+        };
+        const parsedForms = {};
+        Object.keys(forms).forEach(formId => {
+            const parsedOpts = {};
+            const opts = forms[formId];
+            Object.keys(opts).forEach(optName => {
+                if (optTypes[optName] === Boolean) {
+                    parsedOpts[optName] = !!+opts[optName];
+                } else {
+                    parsedOpts[optName] = opts[optName];
+                }
+            });
+            parsedForms[formId] = parsedOpts;
+        });
+        return parsedForms;
+    }
+
     const template = `
         <div class="ic-gravity-modals">
             <SweetModal
@@ -10,6 +34,9 @@ window.IcGravityModalInit = function(forms, ajaxUrl) {
                 :ref="getModalRef(formId)"
                 :icon="icon"
                 :width="opts.modalWidth"
+                :modal-theme="opts.modalTheme"
+                :overlay-theme="opts.overlayTheme"
+                :enable-mobile-fullscreen="opts.enableMobileFullscreen"
                 @open="$nextTick(() => executeScripts())"
                 @close="onModalClose">
                 <div ref="loadedContentWrapper" v-html="loadedContent" />
@@ -25,7 +52,7 @@ window.IcGravityModalInit = function(forms, ajaxUrl) {
             openFormId: null,
             loadedContent: '',
             icon: null,
-            forms,
+            forms: parseOptions(forms),
         },
         methods: {
             openModal(formId) {
