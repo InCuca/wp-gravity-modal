@@ -1,5 +1,5 @@
 # ic-gravity-modal
-Gravity Forms Modal Addon
+Gravity Forms Modal (Popup) Addon
 
 ## Usage
 
