@@ -6,7 +6,7 @@
  * Author:          INCUCA
  * Author URI:      https://incuca.net
  * Text Domain:     ic-gravity-modal
- * Version:         0.3.1
+ * Version:         0.3.0
  *
  * @package         Ic_Enfold
  */
