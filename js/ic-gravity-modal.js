@@ -1,4 +1,4 @@
-window.IcGravityModalInit = function(forms, ajaxUrl) {
+window.IcGravityModalInit = function (forms, ajaxUrl) {
     Vue.component('SweetModal', window.SweetModal.SweetModal);
     Vue.component('SweetModalTab', window.SweetModal.SweetModalTab);
 
@@ -39,7 +39,7 @@ window.IcGravityModalInit = function(forms, ajaxUrl) {
                 :enable-mobile-fullscreen="opts.enableMobileFullscreen"
                 @open="$nextTick(() => executeScripts())"
                 @close="onModalClose">
-                <div ref="loadedContentWrapper" v-html="loadedContent" />
+                <div :ref="getContentRef(formId)" v-html="getLoadedContent(formId)" />
             </SweetModal>
         </div>
     `;
@@ -50,7 +50,7 @@ window.IcGravityModalInit = function(forms, ajaxUrl) {
         template,
         data: {
             openFormId: null,
-            loadedContent: '',
+            loadedContent: {},
             icon: null,
             forms: parseOptions(forms),
         },
@@ -60,7 +60,10 @@ window.IcGravityModalInit = function(forms, ajaxUrl) {
                 if (found && found.length > 0) {
                     this.request(formId, res => {
                         this.openFormId = formId;
-                        this.loadedContent = res.responseText;
+                        this.loadedContent = {
+                            ...this.loadedContent,
+                            [formId]: res.responseText
+                        };
                         found[0].open();
                     });
                 } else {
@@ -69,6 +72,12 @@ window.IcGravityModalInit = function(forms, ajaxUrl) {
             },
             getModalRef(formId) {
                 return 'form-' + formId;
+            },
+            getContentRef(formId) {
+                return 'content-' + formId;
+            },
+            getLoadedContent(formId) {
+                return this.loadedContent[formId];
             },
             handleError() {
                 this.icon = "error";
@@ -99,8 +108,8 @@ window.IcGravityModalInit = function(forms, ajaxUrl) {
             },
             executeScripts() {
                 const scripts = [];
-                const wrp = this.$refs.loadedContentWrapper[0];
-                const testScript = document.createElement('script');
+                const contentRef = this.getContentRef(this.openFormId);
+                const wrp = this.$refs[contentRef][0];
                 const ret = wrp.childNodes;
                 for (let i = 0; ret[i]; i++) {
                     if (scripts && this.getNodeName(ret[i], "script") && (!ret[i].type || ret[i].type.toLowerCase() === "text/javascript")) {
