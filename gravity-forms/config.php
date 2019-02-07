@@ -28,10 +28,10 @@ function ic_gravity_modal_gform_loaded() {
 add_action( 'gform_loaded', 'ic_gravity_modal_gform_loaded');
 
 function ic_gravity_modal_get_form(){
-	$form_id = isset( $_GET['form_id'] ) ? absint( $_GET['form_id'] ) : 0;
+  $form_id = isset( $_GET['form_id'] ) ? absint( $_GET['form_id'] ) : 0;
 	// Render an AJAX-enabled form.
   // https://www.gravityhelp.com/documentation/article/embedding-a-form/#function-call
-  gravity_form( $form_id, false, false, false, false, true );
+  gravity_form( $form_id, false, false, false, $_GET, true );
 	die();
 }
 add_action( 'wp_ajax_nopriv_ic_gravity_modal_get_form', 'ic_gravity_modal_get_form' );
