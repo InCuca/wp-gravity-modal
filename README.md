@@ -1,6 +1,6 @@
 [![GitHub release](https://img.shields.io/github/release/InCuca/ic-gravity-modal.svg)](https://GitHub.com/InCuca/ic-gravity-modal/releases/)
 
-# ic-gravity-modal
+# wp-gravity-modal
 Gravity Forms Modal (Popup) Addon
 
 ## Usage
